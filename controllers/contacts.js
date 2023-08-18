@@ -33,8 +33,13 @@ const getById = async (req, res) => {
 const add = async (req, res) => {
   const { error } = addSchema.validate(req.body);
 
+  if (!Object.keys(req.body).length) {
+    throw HttpError(400, "Missing fields");
+  }
+
   if (error) {
-    throw HttpError(400, "Missing required name field");
+    const missingNameField = error.details[0].context.label;
+    throw HttpError(400, `Missing required ${missingNameField} field`);
   }
 
   const result = await addContact(req.body);
@@ -44,8 +49,13 @@ const add = async (req, res) => {
 const update = async (req, res) => {
   const { error } = addSchema.validate(req.body);
 
-  if (error) {
+  if (!Object.keys(req.body).length) {
     throw HttpError(400, "Missing fields");
+  }
+
+  if (error) {
+    const missingNameField = error.details[0].context.label;
+    throw HttpError(400, `Missing required ${missingNameField} field`);
   }
 
   const { id } = req.params;
