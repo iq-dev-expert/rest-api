@@ -6,7 +6,7 @@ const {
   removeContact,
 } = require("../models/contacts");
 const Joi = require("joi");
-const { HttpError, controllersWrapper } = require("../helpers");
+const { HttpError, controllersWrapper, validateData } = require("../helpers");
 
 const addSchema = Joi.object({
   name: Joi.string().required(),
@@ -31,33 +31,11 @@ const getById = async (req, res) => {
 };
 
 const add = async (req, res) => {
-  const { error } = addSchema.validate(req.body);
-
-  if (!Object.keys(req.body).length) {
-    throw HttpError(400, "Missing fields");
-  }
-
-  if (error) {
-    const missingNameField = error.details[0].context.label;
-    throw HttpError(400, `Missing required ${missingNameField} field`);
-  }
-
   const result = await addContact(req.body);
   res.status(201).json(result);
 };
 
 const update = async (req, res) => {
-  const { error } = addSchema.validate(req.body);
-
-  if (!Object.keys(req.body).length) {
-    throw HttpError(400, "Missing fields");
-  }
-
-  if (error) {
-    const missingNameField = error.details[0].context.label;
-    throw HttpError(400, `Missing required ${missingNameField} field`);
-  }
-
   const { id } = req.params;
   const result = await updateContact(id, req.body);
 
@@ -82,7 +60,7 @@ const remove = async (req, res) => {
 module.exports = {
   getAll: controllersWrapper(getAll),
   getById: controllersWrapper(getById),
-  add: controllersWrapper(add),
-  update: controllersWrapper(update),
+  add: [validateData(addSchema), controllersWrapper(add)],
+  update: [validateData(addSchema), controllersWrapper(update)],
   remove: controllersWrapper(remove),
 };
