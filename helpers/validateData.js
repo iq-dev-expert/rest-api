@@ -7,10 +7,7 @@ const validateData = (schema) => {
     }
 
     if (error) {
-      const missingNameField = error.details[0].context.label;
-      return res
-        .status(400)
-        .json({ error: `Missing required ${missingNameField} field` });
+      return res.status(400).json({ error: error.message });
     }
 
     next();
