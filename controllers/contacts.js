@@ -5,20 +5,7 @@ const {
   updateContact,
   removeContact,
 } = require("../models/contacts");
-const Joi = require("joi");
 const { HttpError, controllersWrapper, validateData } = require("../helpers");
-
-const addSchema = Joi.object({
-  name: Joi.string().required().messages({
-    "any.required": "Missing required name field",
-  }),
-  email: Joi.string().required().messages({
-    "any.required": "Missing required email field",
-  }),
-  phone: Joi.string().required().messages({
-    "any.required": "Missing required phone field",
-  }),
-});
 
 const getAll = async (_, res) => {
   const result = await getContactList();
@@ -66,7 +53,7 @@ const remove = async (req, res) => {
 module.exports = {
   getAll: controllersWrapper(getAll),
   getById: controllersWrapper(getById),
-  add: [validateData(addSchema), controllersWrapper(add)],
-  update: [validateData(addSchema), controllersWrapper(update)],
+  add: [validateData, controllersWrapper(add)],
+  update: [validateData, controllersWrapper(update)],
   remove: controllersWrapper(remove),
 };
