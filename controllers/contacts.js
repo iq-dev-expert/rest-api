@@ -5,7 +5,11 @@ const {
   updateContact,
   removeContact,
 } = require("../models/contacts");
-const { HttpError, controllersWrapper, validateData } = require("../helpers");
+const {
+  controllersWrapper,
+  validateData,
+  PageNotFound,
+} = require("../helpers");
 
 const getAll = async (_, res) => {
   const result = await getContactList();
@@ -16,9 +20,7 @@ const getById = async (req, res) => {
   const { id } = req.params;
   const result = await getContactById(id);
 
-  if (!result) {
-    throw HttpError(404, "Not found");
-  }
+  PageNotFound(result);
 
   res.json(result);
 };
@@ -32,9 +34,7 @@ const update = async (req, res) => {
   const { id } = req.params;
   const result = await updateContact(id, req.body);
 
-  if (!result) {
-    throw HttpError(404, "Not found");
-  }
+  PageNotFound(result);
 
   res.json(result);
 };
@@ -43,9 +43,7 @@ const remove = async (req, res) => {
   const { id } = req.params;
   const result = await removeContact(id);
 
-  if (!result) {
-    throw HttpError(404, "Not found");
-  }
+  PageNotFound(result);
 
   res.json({ message: "Contact deleted" });
 };
