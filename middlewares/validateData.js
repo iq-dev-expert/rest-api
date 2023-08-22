@@ -1,23 +1,8 @@
 const Joi = require("joi");
-
-const propertiesObject = ["name", "email", "phone"];
-
-const createObject = (propertiesObject) => {
-  const object = {};
-
-  for (const property of propertiesObject) {
-    object[property] = Joi.string()
-      .required()
-      .messages({
-        "any.required": `Missing required ${property} field`,
-      });
-  }
-
-  return object;
-};
+const { createObject } = require("../helpers");
 
 const validate = (data) => {
-  const schema = Joi.object(createObject(propertiesObject));
+  const schema = Joi.object(createObject());
   return schema.validate(data);
 };
 
