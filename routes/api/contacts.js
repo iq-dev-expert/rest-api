@@ -6,6 +6,7 @@ const {
   update,
   remove,
 } = require("../../controllers/contacts");
+const { validateData } = require("../../middlewares");
 
 const router = express.Router();
 
@@ -13,9 +14,9 @@ router.get("/", getAll);
 
 router.get("/:id", getById);
 
-router.post("/", add);
+router.post("/", validateData, add);
 
-router.put("/:id", update);
+router.put("/:id", validateData, update);
 
 router.delete("/:id", remove);
 

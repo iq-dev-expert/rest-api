@@ -5,11 +5,7 @@ const {
   updateContact,
   removeContact,
 } = require("../models/contacts");
-const {
-  controllersWrapper,
-  validateData,
-  PageNotFound,
-} = require("../helpers");
+const { controllersWrapper, PageNotFound } = require("../helpers");
 
 const getAll = async (_, res) => {
   const result = await getContactList();
@@ -51,7 +47,7 @@ const remove = async (req, res) => {
 module.exports = {
   getAll: controllersWrapper(getAll),
   getById: controllersWrapper(getById),
-  add: [validateData, controllersWrapper(add)],
-  update: [validateData, controllersWrapper(update)],
+  add: controllersWrapper(add),
+  update: controllersWrapper(update),
   remove: controllersWrapper(remove),
 };
