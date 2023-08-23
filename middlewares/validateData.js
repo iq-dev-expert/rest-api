@@ -1,9 +1,7 @@
-const Joi = require("joi");
-const { createObject } = require("../helpers");
+const { addSchema } = require("../helpers");
 
 const validate = (data) => {
-  const schema = Joi.object(createObject());
-  return schema.validate(data);
+  return addSchema.validate(data);
 };
 
 const validateData = (req, res, next) => {
@@ -21,3 +19,19 @@ const validateData = (req, res, next) => {
 };
 
 module.exports = validateData;
+
+// const { HttpError } = require("../helpers");
+
+// const validateBody = (schema) => {
+//   const func = (req, res, next) => {
+//     const { error } = schema.validate(req.body);
+//     if (error) {
+//       next(HttpError(400, error.message));
+//     }
+//     next();
+//   };
+
+//   return func;
+// };
+
+// module.exports = validateBody;

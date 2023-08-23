@@ -4,20 +4,22 @@ const {
   getById,
   add,
   update,
-  remove,
+  // remove,
 } = require("../../controllers/contacts");
-const { validateData } = require("../../middlewares");
+const { validateData, isValidId } = require("../../middlewares");
 
 const router = express.Router();
 
 router.get("/", getAll);
 
-router.get("/:id", getById);
+router.get("/:id", isValidId, getById);
 
 router.post("/", validateData, add);
 
-router.put("/:id", validateData, update);
+router.put("/:id", isValidId, validateData, update);
 
-router.delete("/:id", remove);
+router.patch("/:id/favorite", isValidId);
+
+// router.delete("/:id",isValidId, remove);
 
 module.exports = router;

@@ -1,11 +1,14 @@
 const HttpError = require("./HttpError");
 const controllersWrapper = require("./controllersWrapper");
 const PageNotFound = require("./PageNotFound");
-const createObject = require("./schemaJoi");
+const { addSchema, upDateFavoriteSchema } = require("./schemasJoi");
+const mongooseError = require("./mongooseError");
 
 module.exports = {
   HttpError,
   controllersWrapper,
   PageNotFound,
-  createObject,
+  mongooseError,
+  addSchema,
+  upDateFavoriteSchema,
 };
