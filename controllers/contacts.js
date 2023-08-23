@@ -1,10 +1,3 @@
-// const {
-//   getContactList,
-//   getContactById,
-//   addContact,
-//   updateContact,
-//   removeContact,
-// } = require("../models/contact");
 const Contact = require("../models/contact");
 const { controllersWrapper, PageNotFound } = require("../helpers");
 
