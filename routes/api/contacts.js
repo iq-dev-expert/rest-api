@@ -7,6 +7,7 @@ const {
   // remove,
 } = require("../../controllers/contacts");
 const { validateData, isValidId } = require("../../middlewares");
+const { addSchema } = require("../../helpers");
 
 const router = express.Router();
 
@@ -14,9 +15,9 @@ router.get("/", getAll);
 
 router.get("/:id", isValidId, getById);
 
-router.post("/", validateData, add);
+router.post("/", validateData(addSchema), add);
 
-router.put("/:id", isValidId, validateData, update);
+router.put("/:id", isValidId, validateData(addSchema), update);
 
 router.patch("/:id/favorite", isValidId);
 

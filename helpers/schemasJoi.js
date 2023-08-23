@@ -1,20 +1,5 @@
 const Joi = require("joi");
 
-// name: {
-//     type: String,
-//     required: [true, "Set name for contact"],
-//   },
-//   email: {
-//     type: String,
-//   },
-//   phone: {
-//     type: String,
-//   },
-//   favorite: {
-//     type: Boolean,
-//     default: false,
-//   },
-
 const stringPropertiesArray = ["name", "email", "phone"];
 const booleanPropertiesArray = ["favorite"];
 
@@ -43,7 +28,11 @@ const createAddSchemaObject = () => {
 const addSchema = Joi.object(createAddSchemaObject());
 
 const upDateFavoriteSchema = Joi.object({
-  [booleanPropertiesArray[0]]: Joi.boolean().required(),
+  [booleanPropertiesArray[0]]: Joi.boolean()
+    .required()
+    .messages({
+      "any.required": `Missing required ${booleanPropertiesArray[0]} field`,
+    }),
 });
 
 module.exports = { addSchema, upDateFavoriteSchema };
