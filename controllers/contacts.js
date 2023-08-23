@@ -6,7 +6,7 @@
 //   removeContact,
 // } = require("../models/contact");
 const Contact = require("../models/contact");
-const { controllersWrapper } = require("../helpers");
+const { controllersWrapper, PageNotFound } = require("../helpers");
 
 const getAll = async (_, res) => {
   const result = await Contact.find();
@@ -36,14 +36,12 @@ const updateFavorit = async (req, res) => {
   res.json(result);
 };
 
-// const remove = async (req, res) => {
-//   const { id } = req.params;
-//   const result = await removeContact(id);
-
-//   PageNotFound(result);
-
-//   res.json({ message: "Contact deleted" });
-// };
+const remove = async (req, res) => {
+  const { id } = req.params;
+  const result = await Contact.findByIdAndRemove(id);
+  PageNotFound(result);
+  res.json({ message: "Contact deleted" });
+};
 
 module.exports = {
   getAll: controllersWrapper(getAll),
@@ -51,5 +49,5 @@ module.exports = {
   add: controllersWrapper(add),
   update: controllersWrapper(update),
   updateFavorit: controllersWrapper(updateFavorit),
-  // remove: controllersWrapper(remove),
+  remove: controllersWrapper(remove),
 };

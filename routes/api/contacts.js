@@ -5,7 +5,7 @@ const {
   add,
   update,
   updateFavorit,
-  // remove,
+  remove,
 } = require("../../controllers/contacts");
 const { validateData, isValidId } = require("../../middlewares");
 const { addSchema, updateFavoriteSchema } = require("../../helpers");
@@ -27,6 +27,6 @@ router.patch(
   updateFavorit
 );
 
-// router.delete("/:id",isValidId, remove);
+router.delete("/:id", isValidId, remove);
 
 module.exports = router;
