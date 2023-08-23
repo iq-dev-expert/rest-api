@@ -27,7 +27,7 @@ const createAddSchemaObject = () => {
 
 const addSchema = Joi.object(createAddSchemaObject());
 
-const upDateFavoriteSchema = Joi.object({
+const updateFavoriteSchema = Joi.object({
   [booleanPropertiesArray[0]]: Joi.boolean()
     .required()
     .messages({
@@ -35,4 +35,4 @@ const upDateFavoriteSchema = Joi.object({
     }),
 });
 
-module.exports = { addSchema, upDateFavoriteSchema };
+module.exports = { addSchema, updateFavoriteSchema };

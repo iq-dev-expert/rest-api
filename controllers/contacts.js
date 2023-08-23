@@ -30,6 +30,12 @@ const update = async (req, res) => {
   res.json(result);
 };
 
+const updateFavorit = async (req, res) => {
+  const { id } = req.params;
+  const result = await Contact.findByIdAndUpdate(id, req.body, { new: true });
+  res.json(result);
+};
+
 // const remove = async (req, res) => {
 //   const { id } = req.params;
 //   const result = await removeContact(id);
@@ -44,5 +50,6 @@ module.exports = {
   getById: controllersWrapper(getById),
   add: controllersWrapper(add),
   update: controllersWrapper(update),
+  updateFavorit: controllersWrapper(updateFavorit),
   // remove: controllersWrapper(remove),
 };

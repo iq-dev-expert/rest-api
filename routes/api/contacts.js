@@ -4,10 +4,11 @@ const {
   getById,
   add,
   update,
+  updateFavorit,
   // remove,
 } = require("../../controllers/contacts");
 const { validateData, isValidId } = require("../../middlewares");
-const { addSchema } = require("../../helpers");
+const { addSchema, updateFavoriteSchema } = require("../../helpers");
 
 const router = express.Router();
 
@@ -19,7 +20,12 @@ router.post("/", validateData(addSchema), add);
 
 router.put("/:id", isValidId, validateData(addSchema), update);
 
-router.patch("/:id/favorite", isValidId);
+router.patch(
+  "/:id/favorite",
+  isValidId,
+  validateData(updateFavoriteSchema),
+  updateFavorit
+);
 
 // router.delete("/:id",isValidId, remove);
 
