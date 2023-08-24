@@ -15,11 +15,7 @@ const createAddSchemaObject = () => {
   }
 
   for (const property of booleanPropertiesArray) {
-    object[property] = Joi.boolean()
-      .required()
-      .messages({
-        "any.required": `Missing required ${property} field`,
-      });
+    object[property] = Joi.boolean();
   }
 
   return object;
