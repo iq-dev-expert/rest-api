@@ -8,7 +8,7 @@ const {
   remove,
 } = require("../../controllers/contacts");
 const { validateData, isValidId } = require("../../middlewares");
-const { addSchema, updateFavoriteSchema } = require("../../helpers");
+const { addSchema, updateFavoriteSchema } = require("../../models/contact");
 
 const router = express.Router();
 
