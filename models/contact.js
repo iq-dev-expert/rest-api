@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 const Joi = require("joi");
 const { mongooseError } = require("../helpers");
 
-const schemaOption = { versionKey: false };
+const schemaOption = { versionKey: false, timestamps: true };
 
 const contactSchema = new Schema(
   {
@@ -19,6 +19,10 @@ const contactSchema = new Schema(
     favorite: {
       type: Boolean,
       default: false,
+    },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: "user",
     },
   },
   schemaOption
