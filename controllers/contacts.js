@@ -9,10 +9,16 @@ const getAll = async (req, res) => {
   const { _id: owner } = req.user;
   const { page = 1, limit = 10 } = req.query;
   const skip = (page - 1) * limit;
-  const { favorite = "" } = req.query;
+  const { favorite } = req.query;
+
+  const filterOwner = { owner };
+
+  if (favorite !== undefined) {
+    filterOwner.favorite = favorite;
+  }
 
   const result = await Contact.find(
-    { owner, favorite },
+    filterOwner,
     "-createdAt -updatedAt -owner",
     {
       skip,
