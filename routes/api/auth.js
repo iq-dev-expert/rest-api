@@ -6,6 +6,7 @@ const {
   login,
   getCurrent,
   logout,
+  updateSubscription,
 } = require("../../controllers/auth");
 
 const router = express.Router();
@@ -17,5 +18,7 @@ router.post("/login", validateData(regLogSchema), login);
 router.get("/current", authenticate, getCurrent);
 
 router.post("/logout", authenticate, logout);
+
+router.patch("/", authenticate, updateSubscription);
 
 module.exports = router;

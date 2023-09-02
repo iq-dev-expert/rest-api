@@ -62,9 +62,18 @@ const logout = async (req, res) => {
   res.status(204).json();
 };
 
+const updateSubscription = async (req, res) => {
+  const { _id } = req.user;
+  const { subscription } = req.body;
+  await User.findByIdAndUpdate(_id, { subscription }, { runValidators: true });
+
+  res.json({ subscription });
+};
+
 module.exports = {
   register: controllersWrapper(register),
   login: controllersWrapper(login),
   getCurrent: controllersWrapper(getCurrent),
   logout: controllersWrapper(logout),
+  updateSubscription: controllersWrapper(updateSubscription),
 };
