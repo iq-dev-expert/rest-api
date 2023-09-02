@@ -11,20 +11,16 @@ const getAll = async (req, res) => {
   const skip = (page - 1) * limit;
   const { favorite } = req.query;
 
-  const filterOwner = { owner };
+  const filter = { owner };
 
   if (favorite !== undefined) {
-    filterOwner.favorite = favorite;
+    filter.favorite = favorite;
   }
 
-  const result = await Contact.find(
-    filterOwner,
-    "-createdAt -updatedAt -owner",
-    {
-      skip,
-      limit,
-    }
-  );
+  const result = await Contact.find(filter, "-createdAt -updatedAt -owner", {
+    skip,
+    limit,
+  });
   res.json(result);
 };
 
