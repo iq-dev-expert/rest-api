@@ -38,4 +38,10 @@ const regLogSchema = Joi.object({
   }),
 });
 
-module.exports = { User, regLogSchema };
+const updateSubscriptionSchema = Joi.object({
+  subscription: Joi.string().required().messages({
+    "any.required": `Missing required subscription field`,
+  }),
+});
+
+module.exports = { User, regLogSchema, updateSubscriptionSchema };
