@@ -1,9 +1,15 @@
 const express = require("express");
 
 const { validateData, authenticate, upload } = require("../../middlewares");
-const { regLogSchema, updateSubscriptionSchema } = require("../../models/user");
+const {
+  regLogSchema,
+  emailSchema,
+  updateSubscriptionSchema,
+} = require("../../models/user");
 const {
   register,
+  verifyEmail,
+  resendVerifyEmail,
   login,
   getCurrent,
   logout,
@@ -14,6 +20,10 @@ const {
 const router = express.Router();
 
 router.post("/register", validateData(regLogSchema), register);
+
+router.get("/verify/:verificationToken", verifyEmail);
+
+router.post("/verify", validateData(emailSchema), resendVerifyEmail);
 
 router.post("/login", validateData(regLogSchema), login);
 

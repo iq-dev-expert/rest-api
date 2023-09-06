@@ -7,9 +7,15 @@ const validateData = (schema) => {
         case "favorite":
         case "subscription": {
           return res.status(400).json({
-            message: `missing field ${error.details[0].context.key}`,
+            message: `Missing field ${error.details[0].context.key}`,
           });
         }
+      }
+
+      if (error.details[0].context.key === "email") {
+        return res
+          .status(400)
+          .json({ message: "Missing required field email" });
       }
 
       return res.status(400).json({ message: "Missing fields" });
